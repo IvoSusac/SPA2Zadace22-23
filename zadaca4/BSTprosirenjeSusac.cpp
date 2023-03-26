@@ -180,6 +180,13 @@ class BST
 public:
     BST() : root(NULL) {}
 
+    BST(const BST &T) : BST{} {
+        vector<int> copy {};
+        inorder(T.root, copy);
+        for (int i : copy)
+            insert(i);
+    }
+
     void print()
     {
         vector<int> temp{};
@@ -243,8 +250,9 @@ public:
 
     BST BSTadd(BST T1, BST T2) {
         if (structurallyEqual(T1, T2)) {
-            NodeAdd(T1.root, T2.root);
-            return T1;
+            BST T3(T1);
+            NodeAdd(T3.root, T2.root);
+            return T3;
         }
         vector<int> nodes;
         inorder(T1.root, nodes);
@@ -292,6 +300,7 @@ int main()
     bst2.insert(2);
     bst2.insert(12);
     bst2.insert(16);
+    bst2.insert(4);
 
     bst2.print();
 
